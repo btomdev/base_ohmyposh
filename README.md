@@ -1,6 +1,7 @@
 # base_ohmyposh
 oh-my-posh base model
 
+
 ## Install Oh My Posh
 ```bash
 brew install jandedobbeleer/oh-my-posh/oh-my-posh
