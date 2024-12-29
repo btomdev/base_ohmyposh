@@ -1,0 +1,79 @@
+version = 3
+final_space = true
+
+[upgrade]
+  source = 'cdn'
+  interval = '168h'
+  auto = false
+  notice = false
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+
+  [[blocks.segments]]
+    template = '<transparent></> {{ .Path }} '
+    foreground = '#43CCEA'
+    background = '#272727'
+    type = 'path'
+
+    [blocks.segments.properties]
+      folder_icon = ''
+      folder_separator_icon = ' / '
+      home_icon = ''
+      style = 'agnoster_short'
+
+  [[blocks.segments]]
+    trailing_diamond = ''
+    template = '<#000000> </>{{ .HEAD }}{{ if .Staging.Changed }}<#FF6F00>  {{ .Staging.String }}</>{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
+    foreground = '#00ff0d'
+    background = '#272727'
+    type = 'git'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      fetch_stash_count = true
+      fetch_status = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    template = ' {{ .FormattedMs }}s'
+    foreground = '#ffffff'
+    background = '#272727'
+    powerline_symbol = ''
+    type = 'executiontime'
+    style = 'powerline'
+    invert_powerline = true
+
+    [blocks.segments.properties]
+      always_enabled = true
+      style = 'dallas'
+      threshold = 0.0
+
+  [[blocks.segments]]
+    template = '<transparent> / </>{{ .CurrentDate | date .Format }} '
+    foreground = '#43CCEA'
+    background = '#272727'
+    type = 'time'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      time_format = '3:04:05'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = ' '
+    foreground = '#00ff0d'
+    type = 'status'
+    style = 'plain'
+    foreground_templates = ['{{ if gt .Code 0 }}#ff0000{{ end }}']
+
+    [blocks.segments.properties]
+      always_enabled = true
