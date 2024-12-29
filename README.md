@@ -7,9 +7,9 @@ oh-my-posh base model
 brew install jandedobbeleer/oh-my-posh/oh-my-posh
 ```
 
-## Istall Font
+## Install Font
 ```bash
-oh-my-posh font install
+oh-my-posh font install meslo
 ```
 
 ## Initialize Oh My Posh in `~/.zshrc`
