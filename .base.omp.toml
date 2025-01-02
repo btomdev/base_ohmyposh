@@ -1,5 +1,12 @@
 version = 3
-final_space = true
+
+[palette]
+blue = "#43CCEA"
+black = "#272727"
+black-dark = "#131313"
+gray = "#939393"
+white = "#ffffff"
+red = "#FF5252"
 
 [upgrade]
   source = 'cdn'
@@ -12,63 +19,87 @@ final_space = true
   alignment = 'left'
 
   [[blocks.segments]]
-    template = '<transparent></> {{ .Path }} '
-    foreground = '#43CCEA'
-    background = '#272727'
-    type = 'path'
-
-    [blocks.segments.properties]
-      folder_icon = ''
-      folder_separator_icon = ' / '
-      home_icon = ''
-      style = 'agnoster_short'
+    template = ' {{ if .WSL }}WSL at {{ end }}{{.Icon}} <p:black-dark>/</>'
+    foreground = 'p:blue'
+    background = 'p:black'
+    type = 'os'
+    style = 'plain'
 
   [[blocks.segments]]
-    type = "git"
-    style = "powerline"
-    powerline_symbol = " "
-    foreground = "#272727"
-    background = "#43CCEA"
-    background_templates = [
+    template = '  '
+    foreground = 'p:blue'
+    background = 'p:black'
+    type = 'root'
+    style = 'plain'
+
+    [[blocks.segments]]
+      template = ' {{ .Path }} '
+      foreground = '#43CCEA'
+      background = '#272727'
+      type = 'path'
+
+    [blocks.segments.properties]
+      style = 'full'
+
+  [[blocks.segments]]
+    type = 'git'
+    style = "diamond"
+    foreground = 'p:black'
+    background = 'p:black'
+    foreground_templates = [
       "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
       "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#FFCC80{{ end }}",
       "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
       "{{ if gt .Behind 0 }}#B388FB{{ end }}"
     ]
-    template = "{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}"
+    template = "<p:black-dark>/</> {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} "
 
     [blocks.segments.properties]
       fetch_status = true
       fetch_upstream_icon = true
       source = "cli"
 
+  [[blocks.segments]]
+    template = ''
+    foreground = 'p:black'
+    background = 'transparent'
+    type = 'text'
+    style = 'plain'
+
 [[blocks]]
   type = 'prompt'
   alignment = 'right'
 
   [[blocks.segments]]
-    template = ' {{ .FormattedMs }}s'
-    foreground = '#ffffff'
-    background = '#272727'
+    template = ' {{ .FormattedMs }}s <p:black-dark>/</>'
+    foreground = 'p:white'
+    background = 'p:black'
     powerline_symbol = ''
     type = 'executiontime'
     style = 'powerline'
     invert_powerline = true
 
-    [blocks.segments.properties]
-      always_enabled = true
-      style = 'dallas'
-      threshold = 0.0
+  [blocks.segments.properties]
+    always_enabled = true
+    style = 'dallas'
+    threshold = 0.0
 
   [[blocks.segments]]
-    template = '<transparent>/ </>{{ .CurrentDate | date .Format }} '
-    foreground = '#43CCEA'
-    background = '#272727'
-    type = 'time'
+    template = '{{ .UserName }}@{{ .HostName }} <p:black-dark>/</>'
+    foreground = 'p:blue'
+    background = 'p:black'
+    type = 'session'
     style = 'diamond'
 
+  [[blocks.segments]]
+    template = ' {{ .CurrentDate | date .Format }} '
+    foreground = 'p:blue'
+    background = 'p:black'
+    type = 'time'
+    style = 'plain'
+
     [blocks.segments.properties]
-      time_format = '3:04:05'
+      time_format = '15:04:05'
 
 [[blocks]]
   type = 'prompt'
@@ -76,11 +107,11 @@ final_space = true
   newline = true
 
   [[blocks.segments]]
-    template = ' '
-    foreground = '#00ff0d'
+    template = '❯ '
+    foreground = 'p:blue'
     type = 'status'
     style = 'plain'
-    foreground_templates = ['{{ if gt .Code 0 }}#ff0000{{ end }}']
+    foreground_templates = ['{{ if gt .Code 0 }}p:red{{ end }}']
 
     [blocks.segments.properties]
       always_enabled = true
