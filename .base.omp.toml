@@ -7,6 +7,7 @@ black-dark = "#131313"
 gray = "#939393"
 white = "#ffffff"
 red = "#FF5252"
+bright-green = "#AAFF00"
 
 [upgrade]
   source = 'cdn'
@@ -44,7 +45,7 @@ red = "#FF5252"
   [[blocks.segments]]
     type = 'git'
     style = "diamond"
-    foreground = 'p:black'
+    foreground = 'p:bright-green'
     background = 'p:black'
     foreground_templates = [
       "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
